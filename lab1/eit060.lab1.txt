@@ -1,0 +1,39 @@
+Problem 1: Ctrl+Alt+Delete - the trusted key sequence
+Problem 2: Yes, in case it is being spoofed.
+Problem 3: EIT060rUI3z!, LoooooooongP4ssw0rd+, B4dPwd!
+Problem 4: Aftonbladet: journalist/Qval1t3t!
+Problem 5: Not really - at best IE offers security by obscurity. Probably just fools the user into thinking passwords are safe.
+
+Problem 6: Found all lm LM passwords with rainbow tables, but none with dictionary attacks
+ 
+ 6/14 Non-LM hashes cracked with non-case permuting dictionary attack. All long words, slightly modified or reversed.
+ 
+ Problem 8: 4la70bfF%3n_=JmK!Lj,sf
+ Problem 9: 1.2*10|17 years using 16 character passwords with upper/lower/alphas/common symbols
+ Problem 10: MS-CACHEv2 brute force would take 5*10^21
+ Problem 11: The salt is not secret, but if it it is too predictable rainbow tables can be built specifically for that salt. Example: Make rainbow tables for the user Administrator. Also, why not just generate a random string?
+
+Problem 12:
+33764 MH/s
+Problem 13:
+SVh4s01
+Zi6o4aD
+Problem 14:
+442.2kH/s
+Problem 15: Lina52 is owner, 
+
+ALLOW Authenticated Users (all but full and special permissions)
+ALLOW SYSTEM (all but special permissions)
+ALLOW Administrators (all but special permissions)
+ALLOW Users (read&exec, list, read)
+
+Problem 16: Everybody, but read only.
+Problem 17: Nope. Windows processes the ACE's from start to finish and the deny locks us out immediately.
+Problem 18: We gave them full control, which they could use, including to change permissions and owner.
+Problem 19: Works!
+Problem 20: Same as parent folder
+Problem 21: Both samba and security permissions must allow permissions
+Problem 22: Possibly because not all failed logins are malicious. What is lina51 just typo'd?
+
+Login token: 195227
+
