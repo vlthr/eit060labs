@@ -17,9 +17,6 @@
 #define PASSWORD_SIZE (32)
 #define HASH_SIZE (13)
 #define NOUSER (-1)
-#define MAX_FAILED_LOGINS (5)
-#define MUST_RESET_PASSWORD (10)
-#define LOCKED_ACCOUNT (-1)
 
 int print_info(const char *username)
 {
@@ -32,7 +29,7 @@ int print_info(const char *username)
     printf("Real name: %s\n", p->pw_gecos);
     printf("Home dir: %s\n",p->pw_dir);
     printf("Shell: %s\n", p->pw_shell);
-    return 0;
+	return 0;
   } else {
     return NOUSER;
   }
@@ -78,38 +75,6 @@ void read_password(char password[])
 
 }
 
-void reset_password(struct pwdb_passwd *p){
-  // Unnecessary? Not sure about lab instructions.
-  char password[PASSWORD_SIZE];
-  char confirm[PASSWORD_SIZE];
-  while (1){
-    read_password(password);
-    read_password(confirm);
-    if (strcmp(password, confirm) == 0) break;
-  }
-  char *crypted = crypt(password, p->pw_passwd);
-  p->pw_passwd=crypted;
-  pwdb_update_user(p);
-}
-
-void login_success(struct pwdb_passwd *p){
-  p->pw_failed = 0;
-  p->pw_age++;
-  if (p->pw_age >= MUST_RESET_PASSWORD) reset_password(p);
-  else pwdb_update_user(p);
-}
-
-int is_locked_out(struct pwdb_passwd *p){
-  if (p->pw_failed == LOCKED_ACCOUNT) return 1;
-  else return 0;
-}
-
-void login_failed(struct pwdb_passwd *p){
-  p->pw_failed++;
-  if (p->pw_failed >= MAX_FAILED_LOGINS) p->pw_failed = -1;
-  pwdb_update_user(p);
-}
-
 int login(){
   char username[USERNAME_SIZE];
   char password[PASSWORD_SIZE];
@@ -119,32 +84,26 @@ int login(){
    */
 
   read_username(username);
+  read_password(password);
 
   struct pwdb_passwd *info = pwdb_getpwnam(username);
+
+  char *crypted = crypt(password, info->pw_passwd);
 
   if (info == NULL){
     printf(pwdb_err2str(NOUSER));
     return 1;
   }
 
-  if (is_locked_out(info)) {
-    printf("Locked out!\n");
-    return 1;
-  }
-
-  read_password(password);
-  char *crypted = crypt(password, info->pw_passwd);
-
   if (strncmp(info->pw_passwd, crypted, HASH_SIZE) == 0){
-    login_success(info);
+    // Equal
     printf("Logged in!\n");
-    return 1;
   }
   else {
-    login_failed(info);
     printf("No!\n");
-    return 0;
   }
+
+  return 0;
 }
 
 int main(int argc, char **argv)
