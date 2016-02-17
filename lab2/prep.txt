@@ -14,3 +14,5 @@ Problem 3: Yep, works
 Problem 4: To prevent brute force attacks. Could also use a timeout to reduce the rate at which an attacker can try attempts.
 Problem 5: The real user is locked out if someone attacks. Availability/DoS attack. Might be hard to get back in if admins aren't working, etc.
 Problem 7: Real user (principal), effective user is the rights that the application gets. Same during normal invocation, different during setuid or restricted execution.
+
+Token: 885897
