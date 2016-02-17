@@ -1,0 +1,16 @@
+Prep 2: How does the given passwd file differ from the standard one?
+
+2 extra integers columns were added.
+
+int pw_failed;   /* number of contiguous unsuccessful logins */
+int pw_age;      /* number of successful logins */
+
+Prep 3: 
+
+
+Problem 1: Password is not shown to prevent it from being logged or shown to unwanted viewers. Achieved through for example, termios flags.
+Problem 2: Yep, there are only 13 bytes of hash (2 of those are the salt), so if you can come up with more passwords than that, some are guaranteed to collide.
+Problem 3: Yep, works
+Problem 4: To prevent brute force attacks. Could also use a timeout to reduce the rate at which an attacker can try attempts.
+Problem 5: The real user is locked out if someone attacks. Availability/DoS attack. Might be hard to get back in if admins aren't working, etc.
+Problem 7: Real user (principal), effective user is the rights that the application gets. Same during normal invocation, different during setuid or restricted execution.
